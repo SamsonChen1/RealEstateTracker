@@ -41,3 +41,11 @@ class ZillowNavigation:
         if self.com_nav.get_page_soup().find("div", {"class": "captcha-container"}):
             # TODO: Implement a way to bypass the captcha
             input("Done solving the captcha?")
+
+    def get_all_listing_from_zillow(self):
+        addr_links = self.get_zillow_page_listings()
+        while self.click_zillow_next_page():
+            addr_links += self.get_zillow_page_listings()
+        logging.info(f"Found {len(addr_links)} listings")
+        return addr_links
+

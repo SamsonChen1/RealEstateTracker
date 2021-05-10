@@ -15,8 +15,9 @@ class ZillowNavigation:
         listings = result_soup.find("ul", class_="photo-cards").find_all("article", class_="list-card")
         for listing in listings:
             post = listing.find("a", class_="list-card-link")
-            addr_links.append((post.string, post["href"]))
-            print(f"{post.string} - {post['href']} ")
+            price = listing.find("div", class_="list-card-price")
+            addr_links.append((post.string, post["href"], price.string))
+            logging.info(f"{post.string} - {post['href']} - {price.string}")
         return addr_links
 
     def click_zillow_next_page(self):
